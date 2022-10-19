@@ -27,9 +27,19 @@ for (const file of commandFiles) {
     }
 }
 
+client.on(Events.InteractionCreate, async interaction =>{
+    if (!interaction.isModalSubmit()) return;
+    if (interaction.customId === 'profile'){
+        await interaction.reply({content: 'Profile opened.'});
+        const firstName = interaction.fields.getTextInputValue('firstNameInput');
+        const lastName = interaction.fields.getTextInputValue('lastNameInput');
+        const github = `https://github.com/${interaction.fields.getTextInputValue('githubInput')}`;
+        console.log(firstName, lastName, github);
+    }
+});
+
 client.on(Events.InteractionCreate, async interaction => {
     if (!interaction.isChatInputCommand()) return;
-    console.log(interaction);
 
     const command = interaction.client.commands.get(interaction.commandName);
 
